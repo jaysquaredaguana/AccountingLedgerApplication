@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class Main {
     // Shared Scanner for all methods in Main
-    private static final Scanner read = new Scanner(System.in);
+    public static final Scanner read = new Scanner(System.in);
 
     public static void main(String[] args) {
         String choice;
@@ -25,7 +25,7 @@ public class Main {
             switch (choice) {
                 case "D" -> addDeposit();
                 case "P" -> makePayment();
-                case "L" -> displayLedger();
+                case "L" -> Ledger.display();
                 case "X" -> System.out.println("Thank you for using the application!");
                 default -> System.out.println("Invalid selection. Please try again.");
             }
