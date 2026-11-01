@@ -27,14 +27,20 @@ public class Ledger {
     }
 
     public static void displayAll() {
-        // Display all transactions
+        for (Transaction transaction : TransactionService.getAllTransactions()) {
+            System.out.println(transaction);
+        }
     }
 
     public static void displayDeposits() {
-        // Display deposits
+        for (Transaction transaction : TransactionService.getDeposits()) {
+            System.out.println(transaction);
+        }
     }
 
     public static void displayPayments() {
-        // Display payments
+        for (Transaction transaction : TransactionService.getPayments()) {
+            System.out.println(transaction);
+        }
     }
 }
