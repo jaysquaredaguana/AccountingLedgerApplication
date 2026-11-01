@@ -46,6 +46,11 @@ public class Transaction {
         return amount;
     }
 
+    // Setter
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
+
     // Transaction format
     @Override
     public String toString() {
