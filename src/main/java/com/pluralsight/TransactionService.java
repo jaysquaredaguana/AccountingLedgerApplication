@@ -1,5 +1,6 @@
 package com.pluralsight;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 
@@ -30,7 +31,7 @@ public class TransactionService {
         return sortedTransactions;
     }
 
-    // Transaction filtering, already sorted
+    // Transaction filtering
 
     public static ArrayList<Transaction> getDeposits() {
         ArrayList<Transaction> deposits = new ArrayList<>();
@@ -50,6 +51,21 @@ public class TransactionService {
             }
         }
         return payments;
+    }
+
+    // date-range lookup REUSABLE method
+    // Retrieve transactions within an inclusive date range
+    public static ArrayList<Transaction> getTransactionsByDateRange(LocalDate startDate, LocalDate endDate) {
+        ArrayList<Transaction> filteredTransactions = new ArrayList<>();
+        for (Transaction transaction : getAllTransactions()) {
+            LocalDate transactionDate = transaction.getDate();
+            // isBefore and isAfter are boundary exclusive
+            if (!transactionDate.isBefore(startDate) && !transactionDate.isAfter(endDate)) {
+                // need to use negation to include start and end dates
+                filteredTransactions.add(transaction);
+            }
+        }
+        return filteredTransactions;
     }
 
     // Custom searching
