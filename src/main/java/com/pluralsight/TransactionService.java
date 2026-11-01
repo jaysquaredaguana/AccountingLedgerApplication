@@ -68,5 +68,17 @@ public class TransactionService {
         return filteredTransactions;
     }
 
+    // Search transactions by vendor name
+    public static ArrayList<Transaction> searchByVendor(String vendor) {
+        ArrayList<Transaction> matchingTransactions = new ArrayList<>();
+        for (Transaction transaction : getAllTransactions()) {
+            if (transaction.getVendor().toLowerCase()
+                    .contains(vendor.trim().toLowerCase())) {
+                matchingTransactions.add(transaction);
+            }
+        }
+        return matchingTransactions;
+    }
+
     // Custom searching
 }

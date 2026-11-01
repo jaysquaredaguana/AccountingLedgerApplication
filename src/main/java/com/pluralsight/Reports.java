@@ -77,24 +77,38 @@ public class Reports {
 
     // display method shared by calls in this Reports class
     public static void displayReport(LocalDate startDate, LocalDate endDate) {
-
         ArrayList<Transaction> transactions =
                 TransactionService.getTransactionsByDateRange(
                         startDate, endDate
                 );
-        // check and handle if no transactions within range
+        displayTransactions(transactions);
+    }
+
+    // Vendor search
+    public static void searchByVendor() {
+        System.out.print("Enter vendor name: ");
+        String vendor = Main.read.nextLine().trim();
+
+        if (vendor.isEmpty()) {
+            System.out.println("Vendor name cannot be empty.");
+            return;
+        }
+        // TransactionService method does the search, Reports class calls it
+        ArrayList<Transaction> transactions = TransactionService.searchByVendor(vendor);
+        displayTransactions(transactions);
+    }
+
+    // reusable display method
+    public static void displayTransactions(ArrayList<Transaction> transactions) {
+        // check and handle if no transactions
         if (transactions.isEmpty()) {
             System.out.println("No transactions found.");
             return;
         }
-        // prints all transactions found within range
+        // prints all transactions
         for (Transaction transaction : transactions) {
             System.out.println(transaction);
         }
-    }
-
-    public static void searchByVendor() {
-        // Vendor search
     }
 
     public static void customSearch() {
