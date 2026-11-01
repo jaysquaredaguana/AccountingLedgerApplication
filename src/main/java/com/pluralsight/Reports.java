@@ -1,5 +1,10 @@
 package com.pluralsight;
 
+import java.time.LocalDate;
+import java.time.Year;
+import java.time.YearMonth;
+import java.util.ArrayList;
+
 public class Reports {
     public static void display() {
         String choice;
@@ -30,20 +35,62 @@ public class Reports {
         } while (!choice.equals("0"));
     }
 
+    // Month To Date report
     public static void monthToDate() {
-        // Month To Date report
+        LocalDate today = LocalDate.now();
+
+        LocalDate startDate = today.withDayOfMonth(1);
+        LocalDate endDate = today;
+
+        displayReport(startDate, endDate);
     }
 
+    // Previous Month report
     public static void previousMonth() {
-        // Previous Month report
+        YearMonth previousMonth = YearMonth.now().minusMonths(1);
+
+        LocalDate startDate = previousMonth.atDay(1);
+        LocalDate endDate = previousMonth.atEndOfMonth();
+
+        displayReport(startDate, endDate);
     }
 
+    // Year To Date report
     public static void yearToDate() {
-        // Year To Date report
+        LocalDate today = LocalDate.now();
+
+        LocalDate startDate = today.withDayOfYear(1);
+        LocalDate endDate = today;
+
+        displayReport(startDate, endDate);
     }
 
+    // Previous Year report
     public static void previousYear() {
-        // Previous Year report
+        Year previousYear = Year.now().minusYears(1);
+        // handles leap year situations better
+        LocalDate startDate = previousYear.atDay(1);
+        LocalDate endDate = previousYear.atMonth(12).atEndOfMonth();
+
+        displayReport(startDate, endDate);
+    }
+
+    // display method shared by calls in this Reports class
+    public static void displayReport(LocalDate startDate, LocalDate endDate) {
+
+        ArrayList<Transaction> transactions =
+                TransactionService.getTransactionsByDateRange(
+                        startDate, endDate
+                );
+        // check and handle if no transactions within range
+        if (transactions.isEmpty()) {
+            System.out.println("No transactions found.");
+            return;
+        }
+        // prints all transactions found within range
+        for (Transaction transaction : transactions) {
+            System.out.println(transaction);
+        }
     }
 
     public static void searchByVendor() {
