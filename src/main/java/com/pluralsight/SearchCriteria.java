@@ -16,8 +16,8 @@ public class SearchCriteria {
         // Note use of Double wrapper to allow null/omitted input
         this.startDate = startDate;
         this.endDate = endDate;
-        this.description = description;
-        this.vendor = vendor;
+        this.description = description.toLowerCase();
+        this.vendor = vendor.toLowerCase();
         // boolean flag checks user input as a Double
         this.filterAmount = amount != null;
         this.amount = (amount != null) ? amount : 0.0;
