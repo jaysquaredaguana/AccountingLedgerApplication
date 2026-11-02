@@ -113,5 +113,6 @@ public class Reports {
 
     public static void customSearch() {
         // Custom search
+        // make sure passes "" rather than null for omitted descriptions and vendors
     }
 }
