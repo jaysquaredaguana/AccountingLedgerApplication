@@ -81,4 +81,32 @@ public class TransactionService {
     }
 
     // Custom searching
+    public static ArrayList<Transaction> customSearch(SearchCriteria criteria) {
+        // use existing getAllTransactions() method
+        // iterate through its results
+        // evaluate the criteria
+        ArrayList<Transaction> matches = new ArrayList<>();
+        for (Transaction transaction : getAllTransactions()) {
+            if (criteria.getStartDate() != null &&
+                    transaction.getDate().isBefore(criteria.getStartDate())) {
+                continue;
+            }
+            if (criteria.getEndDate() != null &&
+                    transaction.getDate().isAfter(criteria.getStartDate())) {
+                continue;
+            }
+            if (!criteria.getDescription().isBlank() &&
+                    !transaction.getDescription().toLowerCase()
+                            .contains(criteria.getDescription())) {
+                continue;
+            }
+            if (!criteria.getVendor().isBlank() &&
+                    !transaction.getVendor().toLowerCase()
+                            .contains(criteria.getVendor())) {
+                continue;
+            }
+            // if (!criteria.isFilterAmount() && )
+        }
+        return matches;
+    }
 }
