@@ -135,7 +135,7 @@ public class Reports {
         System.out.println("\nFor custom search, please type your desired value OR enter to leave blank.");
 
         // initializing the variables before collecting input
-        String inputDate;
+        String input; // will use for validation
         LocalDate startDate = null;
         LocalDate endDate = null;
         String description = "";
@@ -146,13 +146,13 @@ public class Reports {
         boolean validStartDate = false;
         while (!validStartDate) {
             System.out.print("Start date (YYYY-MM-DD): ");
-            inputDate = Main.read.nextLine().trim();
+            input = Main.read.nextLine().trim();
             // flag valid since can be optionally blank
-            if (inputDate.isBlank()) {
+            if (input.isBlank()) {
                 validStartDate = true;
             } else {
                 try {
-                    startDate = LocalDate.parse(inputDate);
+                    startDate = LocalDate.parse(input);
                     validStartDate = true;
                 } catch (DateTimeParseException e) {
                     System.out.println("Invalid date. Please use YYYY-MM-DD.");
@@ -164,13 +164,13 @@ public class Reports {
         boolean validEndDate = false;
         while (!validEndDate) {
             System.out.print("End date (YYYY-MM-DD): ");
-            inputDate = Main.read.nextLine().trim();
+            input = Main.read.nextLine().trim();
             // blank is valid, optional
-            if (inputDate.isBlank()) {
+            if (input.isBlank()) {
                 validEndDate = true;
             } else {
                 try {
-                    endDate = LocalDate.parse(inputDate);
+                    endDate = LocalDate.parse(input);
                     validEndDate = true;
                 } catch (DateTimeParseException e) {
                     System.out.println("Invalid date. Please use YYYY-MM-DD.");
@@ -190,6 +190,24 @@ public class Reports {
 
         System.out.print("Vendor: ");
         vendor = Main.read.nextLine().trim();
+
+        // Amount collection
+        boolean validAmount = false;
+        while (!validAmount) {
+            System.out.print("Amount: ");
+            input = Main.read.nextLine().trim();
+            // checks the escape condition and leaves value untouched
+            if (input.isBlank()) {
+                validAmount = true;
+            } else {
+                try {
+                    amount = Double.parseDouble(input);
+                    validAmount = true;
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid input. Please enter numerical value.");
+                }
+            }
+        }
 
         ArrayList<Transaction> transactions = TransactionService.searchByVendor(vendor);
         displayTransactions(transactions);
