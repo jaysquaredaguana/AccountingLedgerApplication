@@ -135,32 +135,46 @@ public class Reports {
         System.out.println("\nFor custom search, please type your desired value OR enter to leave blank.");
 
         // initializing the variables before collecting input
-        String input;
+        String inputDate;
         LocalDate startDate = null;
         LocalDate endDate = null;
         String description = "";
         String vendor = "";
         Double amount = null;
 
-        System.out.print("Start date (YYYY-MM-DD): ");
-        input = Main.read.nextLine().trim();
-        if (!input.isBlank()) {
-            try {
-                startDate = LocalDate.parse(input);
-            } catch (DateTimeParseException e) {
-                System.out.println("Invalid date. Please use YYYY-MM-DD.");
-                return;
+        // Start date collection
+        boolean validStartDate = false;
+        while (!validStartDate) {
+            System.out.print("Start date (YYYY-MM-DD): ");
+            inputDate = Main.read.nextLine().trim();
+            // flag valid since can be optionally blank
+            if (inputDate.isBlank()) {
+                validStartDate = true;
+            } else {
+                try {
+                    startDate = LocalDate.parse(inputDate);
+                    validStartDate = true;
+                } catch (DateTimeParseException e) {
+                    System.out.println("Invalid date. Please use YYYY-MM-DD.");
+                }
             }
         }
 
-        System.out.print("End date (YYYY-MM-DD): ");
-        input = Main.read.nextLine().trim();
-        if (!input.isBlank()) {
-            try {
-                endDate = LocalDate.parse(input);
-            } catch (DateTimeParseException e) {
-                System.out.println("Invalid date. Please use YYYY-MM-DD.");
-                return;
+        // End date collection
+        boolean validEndDate = false;
+        while (!validEndDate) {
+            System.out.print("End date (YYYY-MM-DD): ");
+            inputDate = Main.read.nextLine().trim();
+            // blank is valid, optional
+            if (inputDate.isBlank()) {
+                validEndDate = true;
+            } else {
+                try {
+                    endDate = LocalDate.parse(inputDate);
+                    validEndDate = true;
+                } catch (DateTimeParseException e) {
+                    System.out.println("Invalid date. Please use YYYY-MM-DD.");
+                }
             }
         }
 
@@ -171,14 +185,11 @@ public class Reports {
             return;
         }
 
+        System.out.print("Description: ");
+        description = Main.read.nextLine().trim();
 
-
-        System.out.print("Enter vendor name: ");
+        System.out.print("Vendor: ");
         vendor = Main.read.nextLine().trim();
-
-        if (vendor.isEmpty()) {
-            vendor = "";
-        }
 
         ArrayList<Transaction> transactions = TransactionService.searchByVendor(vendor);
         displayTransactions(transactions);
