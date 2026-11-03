@@ -194,7 +194,7 @@ public class Reports {
         // Amount collection
         boolean validAmount = false;
         while (!validAmount) {
-            System.out.print("Amount: ");
+            System.out.print("Amount (or enter blank to skip): ");
             input = Main.read.nextLine().trim();
             // checks the escape condition and leaves value untouched
             if (input.isBlank()) {
