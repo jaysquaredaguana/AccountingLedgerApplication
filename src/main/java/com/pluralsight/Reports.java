@@ -3,6 +3,7 @@ package com.pluralsight;
 import java.time.LocalDate;
 import java.time.Year;
 import java.time.YearMonth;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class Reports {
@@ -111,8 +112,75 @@ public class Reports {
         }
     }
 
+    // Collect input — ask the user for the five optional criteria.
+    // Prepare the criteria — convert blank dates and amounts to null, and blank text fields to empty strings.
+    // Run and display the search — construct SearchCriteria, call the service, and display the results.
     public static void customSearch() {
         // Custom search
         // make sure passes "" rather than null for omitted descriptions and vendors
+        // trim inputs, searchCriteria constructor will normalize casing
+
+        // collect the five inputs
+        // convert blank date and amount inputs into null
+        // use empty strings for omitted text criteria
+        // construct SearchCriteria
+        // call TransactionService.customSearch(criteria).
+        //
+        //Then pass the returned list to existing displayTransactions() method
+
+        // LocalDate startDate, LocalDate endDate,
+        // String description, String vendor,
+        // Double amount
+
+        System.out.println("\nFor custom search, please type your desired value OR enter to leave blank.");
+
+        // initializing the variables before collecting input
+        String input;
+        LocalDate startDate = null;
+        LocalDate endDate = null;
+        String description = "";
+        String vendor = "";
+        Double amount = null;
+
+        System.out.print("Start date (YYYY-MM-DD): ");
+        input = Main.read.nextLine().trim();
+        if (!input.isBlank()) {
+            try {
+                startDate = LocalDate.parse(input);
+            } catch (DateTimeParseException e) {
+                System.out.println("Invalid date. Please use YYYY-MM-DD.");
+                return;
+            }
+        }
+
+        System.out.print("End date (YYYY-MM-DD): ");
+        input = Main.read.nextLine().trim();
+        if (!input.isBlank()) {
+            try {
+                endDate = LocalDate.parse(input);
+            } catch (DateTimeParseException e) {
+                System.out.println("Invalid date. Please use YYYY-MM-DD.");
+                return;
+            }
+        }
+
+        // If collecting both dates, check the start date isn't after the end date.
+        if (startDate != null && endDate != null &&
+                startDate.isAfter(endDate)) {
+            System.out.println("Start date cannot be after end date.");
+            return;
+        }
+
+
+
+        System.out.print("Enter vendor name: ");
+        vendor = Main.read.nextLine().trim();
+
+        if (vendor.isEmpty()) {
+            vendor = "";
+        }
+
+        ArrayList<Transaction> transactions = TransactionService.searchByVendor(vendor);
+        displayTransactions(transactions);
     }
 }
