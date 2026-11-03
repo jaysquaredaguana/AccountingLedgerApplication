@@ -112,33 +112,14 @@ public class Reports {
         }
     }
 
-    // Collect input — ask the user for the five optional criteria.
-    // Prepare the criteria — convert blank dates and amounts to null, and blank text fields to empty strings.
-    // Run and display the search — construct SearchCriteria, call the service, and display the results.
     public static void customSearch() {
-        // Custom search
-        // make sure passes "" rather than null for omitted descriptions and vendors
-        // trim inputs, searchCriteria constructor will normalize casing
-
-        // collect the five inputs
-        // convert blank date and amount inputs into null
-        // use empty strings for omitted text criteria
-        // construct SearchCriteria
-        // call TransactionService.customSearch(criteria).
-        //
-        //Then pass the returned list to existing displayTransactions() method
-
-        // LocalDate startDate, LocalDate endDate,
-        // String description, String vendor,
-        // Double amount
-
         System.out.println("\nFor custom search, please type your desired value OR enter to leave blank.");
 
         // initializing the variables before collecting input
         String input; // will use for validation
         LocalDate startDate = null;
         LocalDate endDate = null;
-        String description = "";
+        String description = ""; // use empty strings for omitted text criteria
         String vendor = "";
         Double amount = null;
 
@@ -208,8 +189,7 @@ public class Reports {
                 }
             }
         }
-
-        ArrayList<Transaction> transactions = TransactionService.searchByVendor(vendor);
-        displayTransactions(transactions);
+        SearchCriteria criteria = new SearchCriteria(startDate, endDate, description, vendor, amount);
+        displayTransactions(TransactionService.customSearch(criteria));
     }
 }
