@@ -82,17 +82,15 @@ public class TransactionService {
 
     // Custom searching
     public static ArrayList<Transaction> customSearch(SearchCriteria criteria) {
-        // use existing getAllTransactions() method
-        // iterate through its results
-        // evaluate the criteria
         ArrayList<Transaction> matches = new ArrayList<>();
+        // iterate through all the transactions and use rejection filtering
         for (Transaction transaction : getAllTransactions()) {
             if (criteria.getStartDate() != null &&
                     transaction.getDate().isBefore(criteria.getStartDate())) {
                 continue;
             }
             if (criteria.getEndDate() != null &&
-                    transaction.getDate().isAfter(criteria.getStartDate())) {
+                    transaction.getDate().isAfter(criteria.getEndDate())) {
                 continue;
             }
             if (!criteria.getDescription().isBlank() &&
@@ -105,8 +103,12 @@ public class TransactionService {
                             .contains(criteria.getVendor())) {
                 continue;
             }
-            // if (!criteria.isFilterAmount() && )
+            if (criteria.isFilterAmount() &&
+                    criteria.getAmount() != Math.abs(transaction.getAmount())) {
+                continue; // absolute value will be able to match positive or negative
+            }
+            matches.add(transaction); // adds a transaction if passes all criteria
         }
-        return matches;
+        return matches; // return the collection of transactions that satisfy
     }
 }
