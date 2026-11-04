@@ -16,8 +16,8 @@ public class TransactionFileManager {
                 FileWriter fileWriter = new FileWriter(FILE_NAME, true);
                 BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)
         ) {
-
-            bufferedWriter.write(transaction.toString());
+            // implement distinct format
+            bufferedWriter.write(transaction.toFileFormat());
             bufferedWriter.newLine();
 
         } catch (IOException e) {
