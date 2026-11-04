@@ -5,6 +5,16 @@ public class StartupScreen {
     public static void display() {
         System.out.println("""
                 ================================================
+                 *          .          *          .
+                
+                                 /\\
+                                /  \\
+                               /____\\
+                              | .--. |
+                              | |  | |
+                             /|_|__|_|\\
+                            /__________\\
+                
                            GALACTIC LEDGER
                    INTERSTELLAR FINANCIAL RECORDS SYSTEM
                 ================================================
