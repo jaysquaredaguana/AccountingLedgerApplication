@@ -1,7 +1,7 @@
 package com.pluralsight;
 
 public class StartupScreen {
-    // Display welcome screen
+    // Display welcome screen with brand
     public static void display() {
         System.out.println("""
                 ================================================
