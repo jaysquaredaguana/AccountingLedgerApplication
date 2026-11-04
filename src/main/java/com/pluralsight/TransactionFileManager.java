@@ -32,7 +32,7 @@ public class TransactionFileManager {
                 FileReader fileReader = new FileReader(FILE_NAME);
                 BufferedReader bufferedReader = new BufferedReader(fileReader)
         ) {
-            String line;
+            String line = bufferedReader.readLine(); // initialize and discard file header
             while ((line = bufferedReader.readLine()) != null) {
                 String[] fields = line.split("\\|");
 
