@@ -51,14 +51,19 @@ public class Transaction {
         this.amount = amount;
     }
 
-    // Transaction format
-    @Override
-    public String toString() {
-
+    // Format transaction for file storage
+    public String toFileFormat() {
         return date + "|" +
                 time.format(TIME_FORMAT) + "|" +
                 description + "|" +
                 vendor + "|" +
+                String.format(java.util.Locale.US, "%.2f", amount);
+    }
+
+    // readable transaction representation
+    @Override
+    public String toString() {
+        return description + " | " + vendor + " | " +
                 String.format(java.util.Locale.US, "%.2f", amount);
     }
 }
