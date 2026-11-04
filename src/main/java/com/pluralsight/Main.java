@@ -9,6 +9,8 @@ public class Main {
     public static final Scanner read = new Scanner(System.in);
 
     public static void main(String[] args) {
+        StartupScreen.display();
+
         String choice;
 
         do {
