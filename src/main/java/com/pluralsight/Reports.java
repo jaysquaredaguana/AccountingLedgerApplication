@@ -110,12 +110,12 @@ public class Reports {
 
         System.out.println();
         System.out.println("========================= GALACTIC LEDGER =========================");
-        System.out.printf("%-12s %-10s %-24s %-18s %12s%n", // column width format and alignment
+        System.out.printf("%-12s %-10s %-24s %-24s %12s%n", // column width format and alignment
                 "DATE", "TIME", "DESCRIPTION", "VENDOR", "AMOUNT"); // table field headers
         System.out.println("--------------------------------------------------------------------");
         // reuse columns and fill fields
         for (Transaction transaction : transactions) {
-            System.out.printf("%-12s %-10s %-24s %-18s %12.2f%n",
+            System.out.printf("%-12s %-10s %-24s %-24s %12.2f%n",
                     transaction.getDate(),
                     transaction.getTime().format(DateTimeFormatter.ofPattern("HH:mm:ss")), // forcing ISO default
                     transaction.getDescription(),
