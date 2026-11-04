@@ -3,6 +3,7 @@ package com.pluralsight;
 import java.time.LocalDate;
 import java.time.Year;
 import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
@@ -99,17 +100,31 @@ public class Reports {
         displayTransactions(transactions);
     }
 
-    // reusable display method
+    // Reusable transaction table
     public static void displayTransactions(ArrayList<Transaction> transactions) {
-        // check and handle if no transactions
         if (transactions.isEmpty()) {
+            System.out.println();
             System.out.println("No transactions found.");
             return;
         }
-        // prints all transactions
+
+        System.out.println();
+        System.out.println("========================= GALACTIC LEDGER =========================");
+        System.out.printf("%-12s %-10s %-24s %-18s %12s%n", // column width format and alignment
+                "DATE", "TIME", "DESCRIPTION", "VENDOR", "AMOUNT"); // table field headers
+        System.out.println("--------------------------------------------------------------------");
+        // reuse columns and fill fields
         for (Transaction transaction : transactions) {
-            System.out.println(transaction);
+            System.out.printf("%-12s %-10s %-24s %-18s %12.2f%n",
+                    transaction.getDate(),
+                    transaction.getTime().format(DateTimeFormatter.ofPattern("HH:mm:ss")), // forcing ISO default
+                    transaction.getDescription(),
+                    transaction.getVendor(),
+                    transaction.getAmount());
         }
+        // footer border and counter display
+        System.out.println("--------------------------------------------------------------------");
+        System.out.println("Total Transactions: " + transactions.size());
     }
 
     public static void customSearch() {
