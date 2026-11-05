@@ -4,14 +4,22 @@ public class Ledger {
     public static void display() {
         String choice;
         do {
-            System.out.println();
-            System.out.println("========== LEDGER ==========");
-            System.out.println("A) All");
-            System.out.println("D) Deposits");
-            System.out.println("P) Payments");
-            System.out.println("R) Reports");
-            System.out.println("H) Home");
-            System.out.print("Select an option: ");
+            System.out.print("""
+    
+            ================================================
+                          GALACTIC LEDGER
+                        TRANSACTION ARCHIVE
+            ================================================
+    
+              [A] ALL TRANSACTIONS
+              [D] DEPOSIT RECORDS
+              [P] PAYMENT RECORDS
+              [R] MISSION REPORTS
+              [H] RETURN TO HOME
+    
+            ------------------------------------------------
+              SYSTEM AWAITING INPUT
+              Select destination: """);
 
             choice = Main.read.nextLine().trim().toUpperCase();
 
