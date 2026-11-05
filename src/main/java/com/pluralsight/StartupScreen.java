@@ -19,11 +19,11 @@ public class StartupScreen {
                    INTERSTELLAR FINANCIAL RECORDS SYSTEM
                 ================================================
 
-                         WELCOME, TRAVELER
+                            WELCOME, TRAVELER
 
                   Your credits. Your records. Your galaxy.
 
-                            SYSTEM ONLINE
+                              SYSTEM ONLINE
                 ================================================
                 """);
     }

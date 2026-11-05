@@ -12,12 +12,12 @@ public class Reports {
         String choice;
         do {
             System.out.print("""
-   \s
+   
             ================================================
                           GALACTIC LEDGER
                            MISSION REPORTS
             ================================================
-   \s
+   
               [1] MONTH TO DATE
               [2] PREVIOUS MONTH
               [3] YEAR TO DATE
@@ -25,7 +25,7 @@ public class Reports {
               [5] SEARCH BY VENDOR
               [6] CUSTOM SEARCH
               [0] RETURN TO ARCHIVE
-   \s
+   
             ------------------------------------------------
               REPORTING SYSTEM ONLINE
               Select report:\s""");

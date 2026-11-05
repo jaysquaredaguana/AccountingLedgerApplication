@@ -15,17 +15,17 @@ public class Main {
 
         do {
             System.out.print("""
-   \s
+   
             ================================================
                           GALACTIC LEDGER
                            COMMAND CENTER
             ================================================
-   \s
-              [D] CREDIT INBOUND   (Add Deposit)
-              [P] CREDIT OUTBOUND  (Make Payment)
-              [L] TRANSACTION ARCHIVE
+   
+              [D] CREDIT INBOUND    (Add Deposit)
+              [P] CREDIT OUTBOUND   (Make Payment)
+              [L] TRANSACTION ARCHIVE   (Ledger)
               [X] SHUT DOWN SYSTEM
-   \s
+   
             ------------------------------------------------
               SYSTEM STATUS: ONLINE
               Select command:\s""");
