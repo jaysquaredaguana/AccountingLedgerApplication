@@ -112,14 +112,20 @@ public class Reports {
     public static void displayTransactions(ArrayList<Transaction> transactions) {
         if (transactions.isEmpty()) {
             System.out.println();
-            System.out.println("No transactions found.");
+            System.out.println("  [ARCHIVE NOTICE] No matching transactions found.");
             return;
         }
 
-        System.out.println();
-        System.out.println("========================= GALACTIC LEDGER =========================");
+        System.out.print("""
+
+        ==============================================================
+                      GALACTIC LEDGER // TRANSACTION LOG
+        ==============================================================
+        """);
+
         System.out.printf("%-12s %-10s %-24s %-24s %12s%n", // column width format and alignment
                 "DATE", "TIME", "DESCRIPTION", "VENDOR", "AMOUNT"); // table field headers
+
         System.out.println("--------------------------------------------------------------------");
         // reuse columns and fill fields
         for (Transaction transaction : transactions) {
@@ -132,7 +138,7 @@ public class Reports {
         }
         // footer border and counter display
         System.out.println("--------------------------------------------------------------------");
-        System.out.println("Total Transactions: " + transactions.size());
+        System.out.println("ARCHIVE RECORDS RETRIEVED: " + transactions.size());
     }
 
     public static void customSearch() {
