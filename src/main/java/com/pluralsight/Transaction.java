@@ -58,7 +58,7 @@ public class Transaction {
                 time.format(TIME_FORMAT) + "|" +
                 description + "|" +
                 vendor + "|" +
-                String.format(java.util.Locale.US, "%.2f", amount);
+                String.format(Locale.US, "%.2f", amount);
     }
 
     // readable transaction representation
