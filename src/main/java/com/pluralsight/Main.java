@@ -36,7 +36,15 @@ public class Main {
                 case "D" -> addDeposit();
                 case "P" -> makePayment();
                 case "L" -> Ledger.display();
-                case "X" -> System.out.println("Thank you for using the application!");
+                case "X" -> {
+                    System.out.print("""
+            
+                    ================================================
+                               GALACTIC LEDGER OFFLINE
+                            Safe travels, space traveler.
+                    ================================================
+                    """);
+                }
                 default -> System.out.println("Invalid selection. Please try again.");
             }
 
