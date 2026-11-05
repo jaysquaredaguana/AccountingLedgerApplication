@@ -46,8 +46,13 @@ public class Main {
     }
 
     public static void addDeposit() {
-        System.out.println();
-        System.out.println("========== ADD DEPOSIT ==========");
+        System.out.print("""
+
+        ================================================
+                       CREDIT INBOUND
+                      DEPOSIT TERMINAL
+        ================================================
+        """);
         Transaction transaction = createTransaction(); // implement helper method here
         transaction.setAmount(Math.abs(transaction.getAmount())); // positive transaction
         TransactionFileManager.saveTransaction(transaction);
