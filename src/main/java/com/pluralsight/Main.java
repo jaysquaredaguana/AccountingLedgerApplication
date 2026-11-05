@@ -56,7 +56,7 @@ public class Main {
         Transaction transaction = createTransaction(); // implement helper method here
         transaction.setAmount(Math.abs(transaction.getAmount())); // positive transaction
         TransactionFileManager.saveTransaction(transaction);
-        System.out.println("Deposit successfully saved!");
+        System.out.println("[SYSTEM CONFIRMATION] Deposit recorded successfully.");
     }
 
     public static void makePayment() {
