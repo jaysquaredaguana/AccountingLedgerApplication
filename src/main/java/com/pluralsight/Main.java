@@ -60,8 +60,13 @@ public class Main {
     }
 
     public static void makePayment() {
-        System.out.println();
-        System.out.println("========== MAKE PAYMENT ==========");
+        System.out.print("""
+
+        ================================================
+                      CREDIT OUTBOUND
+                       PAYMENT TERMINAL
+        ================================================
+        """);
         Transaction transaction = createTransaction(); // reuse helper method
         transaction.setAmount(-Math.abs(transaction.getAmount())); // negative transaction
         TransactionFileManager.saveTransaction(transaction);
