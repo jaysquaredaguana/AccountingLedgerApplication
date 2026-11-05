@@ -47,7 +47,7 @@ public class TransactionFileManager {
             }
 
         } catch (IOException e) {
-            System.out.println("Error reading transactions: " + e.getMessage());
+            System.out.println("[STORAGE ALERT] Unable to retrieve transaction records: " + e.getMessage());
         }
         return transactions;
     }
