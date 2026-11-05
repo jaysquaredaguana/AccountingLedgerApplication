@@ -75,15 +75,17 @@ public class Main {
 
     // Collect transaction information
     public static Transaction createTransaction() {
-        // Automatically capture current date and time
+        // Capture current date and time
         LocalDate date = LocalDate.now();
         LocalTime time = LocalTime.now();
-
-        System.out.print("Enter description: ");
+        // Themed user prompts but still clear
+        System.out.print("Transaction description: ");
         String description = read.nextLine();
-        System.out.print("Enter vendor: ");
+
+        System.out.print("Vendor / source: ");
         String vendor = read.nextLine();
-        System.out.print("Enter amount: ");
+
+        System.out.print("Amount in credits: ");
         double amount = Double.parseDouble(read.nextLine());
 
         return new Transaction(date, time, description, vendor, amount);
