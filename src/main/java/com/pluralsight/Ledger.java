@@ -5,21 +5,21 @@ public class Ledger {
         String choice;
         do {
             System.out.print("""
-    
+   \s
             ================================================
                           GALACTIC LEDGER
                         TRANSACTION ARCHIVE
             ================================================
-    
+   \s
               [A] ALL TRANSACTIONS
               [D] DEPOSIT RECORDS
               [P] PAYMENT RECORDS
               [R] MISSION REPORTS
               [H] RETURN TO HOME
-    
+   \s
             ------------------------------------------------
               SYSTEM AWAITING INPUT
-              Select destination: """);
+              Select destination:\s""");
 
             choice = Main.read.nextLine().trim().toUpperCase();
 
