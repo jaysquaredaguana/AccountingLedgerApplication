@@ -21,7 +21,7 @@ public class TransactionFileManager {
             bufferedWriter.newLine();
 
         } catch (IOException e) {
-            System.out.println("Error saving transaction: " + e.getMessage());
+            System.out.println("[STORAGE ALERT] Unable to save transaction: " + e.getMessage());
         }
     }
 
