@@ -11,16 +11,24 @@ public class Reports {
     public static void display() {
         String choice;
         do {
-            System.out.println();
-            System.out.println("========== REPORTS ==========");
-            System.out.println("1) Month To Date");
-            System.out.println("2) Previous Month");
-            System.out.println("3) Year To Date");
-            System.out.println("4) Previous Year");
-            System.out.println("5) Search by Vendor");
-            System.out.println("6) Custom Search");
-            System.out.println("0) Back");
-            System.out.print("Select an option: ");
+            System.out.print("""
+    
+            ================================================
+                          GALACTIC LEDGER
+                           MISSION REPORTS
+            ================================================
+    
+              [1] MONTH TO DATE
+              [2] PREVIOUS MONTH
+              [3] YEAR TO DATE
+              [4] PREVIOUS YEAR
+              [5] SEARCH BY VENDOR
+              [6] CUSTOM SEARCH
+              [0] RETURN TO ARCHIVE
+    
+            ------------------------------------------------
+              REPORTING SYSTEM ONLINE
+              Select report: """);
 
             choice = Main.read.nextLine().trim();
 
