@@ -52,7 +52,7 @@ public class Transaction {
         this.amount = amount;
     }
 
-    // Format transaction for file storage
+    // format expected by TransactionFileManager
     public String toFileFormat() {
         return date + "|" +
                 time.format(TIME_FORMAT) + "|" +
