@@ -14,13 +14,21 @@ public class Main {
         String choice;
 
         do {
-            System.out.println();
-            System.out.println("========== HOME SCREEN ==========");
-            System.out.println("D) Add Deposit");
-            System.out.println("P) Make Payment (Debit)");
-            System.out.println("L) Ledger");
-            System.out.println("X) Exit");
-            System.out.print("Select an option: ");
+            System.out.print("""
+    
+            ================================================
+                          GALACTIC LEDGER
+                           COMMAND CENTER
+            ================================================
+    
+              [D] CREDIT INBOUND   (Add Deposit)
+              [P] CREDIT OUTBOUND  (Make Payment)
+              [L] TRANSACTION ARCHIVE
+              [X] SHUT DOWN SYSTEM
+    
+            ------------------------------------------------
+              SYSTEM STATUS: ONLINE
+              Select command: """);
 
             choice = read.nextLine().trim().toUpperCase();
 
