@@ -3,6 +3,7 @@ package com.pluralsight;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 public class Transaction {
     // Transaction attributes
@@ -64,6 +65,6 @@ public class Transaction {
     @Override
     public String toString() {
         return description + " | " + vendor + " | " +
-                String.format(java.util.Locale.US, "%.2f", amount);
+                String.format(Locale.US, "%.2f", amount);
     }
 }
