@@ -38,14 +38,7 @@ public class Main {
                 case "D" -> addDeposit();
                 case "P" -> makePayment();
                 case "L" -> Ledger.display();
-                case "X" -> {
-                    TerminalUI.printSeparator(48);
-                    System.out.print("""
-                        GALACTIC LEDGER OFFLINE
-                        Safe travels, space traveler.
-                    """);
-                    TerminalUI.printSeparator(48);
-                }
+                case "X" -> StartupScreen.shutdown();
                 default -> System.out.println("Invalid selection. Please try again.");
             }
 

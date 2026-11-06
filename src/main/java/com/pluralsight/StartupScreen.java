@@ -58,4 +58,17 @@ public class StartupScreen {
         }
         System.out.println();
     }
+
+    public static void shutdown() {
+        display();
+
+        System.out.println("""
+
+        [R2-67] Shutting down auxiliary systems...
+        [R2-67] It was a pleasure keeping your credits safe.
+
+        GALACTIC LEDGER OFFLINE
+        Safe travels, space traveler.
+        """);
+    }
 }
