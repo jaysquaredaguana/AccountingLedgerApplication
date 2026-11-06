@@ -1,70 +1,293 @@
-## Class Responsibilities
+# Accounting Ledger Application
 
-The application is organized into the following classes, each with a specific responsibility:
+A Java 17 command-line ledger for recording deposits and payments, keeping them in a local transaction file, and reviewing the records through chronological views and reports. The terminal UI is styled as a shipboard archive, while the underlying application uses a small set of classes for input, transaction operations, persistence, search, and display.
 
-### Transaction
-Represents an individual transaction and maintains its associated attributes.
+## Features
 
-### TransactionFileManager
-Handles the saving and loading of transactions, managing how transaction data is stored and retrieved.
+- Record deposits as positive amounts and payments as negative amounts.
+- Store transactions locally in `transactions.csv` and load them for ledger views and reports.
+- View all transactions, deposits only, or payments only.
+- Sort transaction listings newest first by date and time.
+- Generate month-to-date, previous-month, year-to-date, and previous-year reports.
+- Search by vendor or use custom criteria for date range, description, vendor, and amount.
+- Validate entered amounts and custom-search dates; skip malformed records when reading the data file.
 
-### Reports and Ledger
-Handle how transactions are presented to the user, organizing transaction information into reports and ledger views.
+## Technologies
 
-## Refactoring Highlight: Eliminating Duplicate Display Methods
+- **Java 17** — application language and runtime.
+- **Apache Maven** — project build configuration and lifecycle.
+- **Java standard library** — console input/output, file access, and date/time handling.
+- **Pipe-delimited local text file** — persistent transaction data in `transactions.csv` (despite the `.csv` extension, fields are separated with `|`).
 
-### Old Implementation
+The `pom.xml` declares no third-party dependencies or test libraries.
 
-The original implementation used three separate methods, each containing nearly identical logic. Each method retrieved a collection of defined transactions, looped through the collection, and printed each transaction.
+## Architecture
 
-```java
-public static void displayAll() {
-    for (Transaction transaction : TransactionService.getAllTransactions()) {
-        System.out.println(transaction);
-    }
-}
+This is a single-process console application with no web server or database. `Main` coordinates the interactive menu. The ledger and reports delegate transaction retrieval to `TransactionService`; the service uses `TransactionFileManager` for storage and returns `Transaction` objects. `Reports` renders the result sets to the terminal.
 
-public static void displayDeposits() {
-    for (Transaction transaction : TransactionService.getDeposits()) {
-        System.out.println(transaction);
-    }
-}
+```mermaid
+flowchart TD
+    User[User]
+    Main[Main - entry point and home menu]
+    Startup[StartupScreen]
+    Ledger[Ledger - archive menu]
+    Reports[Reports - reports and output]
+    Service[TransactionService - sorting and filtering]
+    Criteria[SearchCriteria - custom search input]
+    FileManager[TransactionFileManager - file persistence]
+    Model[Transaction - transaction record]
+    Data[(transactions.csv)]
+    Terminal[TerminalUI - separators]
 
-public static void displayPayments() {
-    for (Transaction transaction : TransactionService.getPayments()) {
-        System.out.println(transaction);
-    }
-}
+    User <--> Main
+    Main --> Startup
+    Main --> Ledger
+    Main --> FileManager
+    Ledger --> Reports
+    Ledger --> Service
+    Reports --> Service
+    Reports --> Criteria
+    Service --> FileManager
+    FileManager --> Data
+    FileManager --> Model
+    Service --> Model
+    Reports --> Model
+    Main --> Terminal
+    Ledger --> Terminal
+    Reports --> Terminal
 ```
 
-### Revised Implementation
+### Class responsibilities and relationships
 
-I spotted the opportunity to eliminate this duplication by moving the responsibility for displaying transactions into a single method in the `Reports` class.
+```mermaid
+classDiagram
+    class Main {
+      +main(String[] args)
+      +addDeposit()
+      +makePayment()
+      +createTransaction() Transaction
+    }
+    class StartupScreen {
+      +display()
+      +animateSeparator()
+      +shutdown()
+    }
+    class Ledger {
+      +display()
+      +displayAll()
+      +displayDeposits()
+      +displayPayments()
+    }
+    class Reports {
+      +display()
+      +displayReport(startDate, endDate)
+      +searchByVendor()
+      +customSearch()
+      +displayTransactions(transactions)
+    }
+    class TransactionService {
+      +getAllTransactions() ArrayList~Transaction~
+      +getDeposits() ArrayList~Transaction~
+      +getPayments() ArrayList~Transaction~
+      +getTransactionsByDateRange(startDate, endDate) ArrayList~Transaction~
+      +searchByVendor(vendor) ArrayList~Transaction~
+      +customSearch(criteria) ArrayList~Transaction~
+    }
+    class SearchCriteria {
+      +startDate
+      +endDate
+      +description
+      +vendor
+      +amount
+    }
+    class TransactionFileManager {
+      +saveTransaction(transaction) boolean
+      +readTransactions() ArrayList~Transaction~
+    }
+    class Transaction {
+      +date
+      +time
+      +description
+      +vendor
+      +amount
+      +toFileFormat() String
+    }
+    class TerminalUI {
+      +printSeparator(totalWidth)
+    }
 
-```java
-public static void displayAll() {
-    Reports.displayTransactions(TransactionService.getAllTransactions());
-}
-
-public static void displayDeposits() {
-    Reports.displayTransactions(TransactionService.getDeposits());
-}
-
-public static void displayPayments() {
-    Reports.displayTransactions(TransactionService.getPayments());
-}
+    Main ..> StartupScreen : displays startup and shutdown
+    Main ..> Ledger : opens archive
+    Main ..> TransactionFileManager : saves new records
+    Main ..> Transaction : creates
+    Ledger ..> TransactionService : requests listings
+    Ledger ..> Reports : delegates display and reports
+    Reports ..> TransactionService : requests filtered records
+    Reports ..> SearchCriteria : creates for custom search
+    TransactionService ..> TransactionFileManager : loads records
+    TransactionFileManager ..> Transaction : reads and writes
+    Reports ..> Transaction : formats records
+    Main ..> TerminalUI : uses
+    Ledger ..> TerminalUI : uses
+    Reports ..> TerminalUI : uses
 ```
 
-### Explanation: Separation of Responsibilities
+`Main.read` is the shared console `Scanner` used by the menus and report prompts. `TerminalUI` is a small formatting utility; the application does not use a graphical interface.
 
-Here is what I achieve in the revised implementation:
+### Example flow: adding a transaction
 
-- **TransactionService** retrieves the appropriate transactions.
-- **Ledger** determines which collection of transactions the user requested.
-- **Reports** handles how that collection is displayed.
+```mermaid
+sequenceDiagram
+    actor User
+    participant Main
+    participant File as TransactionFileManager
+    participant Disk as transactions.csv
+    User->>Main: Choose D (deposit) or P (payment)
+    Main->>User: Prompt for description, vendor, and positive amount
+    Main->>Main: Create Transaction with current date and time
+    Main->>Main: Set deposit positive or payment negative
+    Main->>File: saveTransaction(transaction)
+    File->>Disk: Append pipe-delimited record
+    Disk-->>File: Write completes
+    File-->>Main: Success status
+    Main-->>User: Show confirmation
+```
 
-Instead of having three methods independently handle the printing logic, all three delegate that responsibility to `Reports.displayTransactions()`.
+### Example flow: custom report search
 
-This eliminates duplicated code and makes the application easier to maintain. If the way transactions are displayed changes in the future, I only need to update one method.
+```mermaid
+sequenceDiagram
+    actor User
+    participant Reports
+    participant Service as TransactionService
+    participant File as TransactionFileManager
+    participant Disk as transactions.csv
+    User->>Reports: Choose custom search and enter criteria
+    Reports->>Reports: Validate dates and optional amount
+    Reports->>Service: customSearch(SearchCriteria)
+    Service->>File: readTransactions() via getAllTransactions()
+    File->>Disk: Read transaction file
+    Disk-->>File: Pipe-delimited records
+    File-->>Service: Parsed transactions
+    Service->>Service: Sort and apply criteria
+    Service-->>Reports: Matching transactions
+    Reports-->>User: Display matching records
+```
 
-I found this discovery to be a good example of **separation of responsibilities**: each class has a clearly defined role, and each method focuses on what it is responsible for doing.
+## Project structure
+
+```text
+.
+├── pom.xml
+├── transactions.csv
+└── src
+    └── main
+        └── java
+            └── com
+                └── pluralsight
+                    ├── Main.java
+                    ├── StartupScreen.java
+                    ├── TerminalUI.java
+                    ├── Ledger.java
+                    ├── Reports.java
+                    ├── SearchCriteria.java
+                    ├── Transaction.java
+                    ├── TransactionService.java
+                    └── TransactionFileManager.java
+```
+
+- `Main.java` — application entry point and deposit/payment prompts.
+- `StartupScreen.java`, `TerminalUI.java` — startup/shutdown presentation and reusable terminal separators.
+- `Ledger.java`, `Reports.java` — archive menus, report selection, searches, and transaction table output.
+- `Transaction.java`, `SearchCriteria.java` — transaction model and custom search criteria.
+- `TransactionService.java` — loading, sorting, filtering, and searching transactions.
+- `TransactionFileManager.java` — appends and reads records in the working-directory data file.
+- `transactions.csv` — sample/persistent data file expected in the process working directory.
+
+## Prerequisites
+
+- JDK 17 or later. The Maven compiler source and target are configured for Java 17.
+- Apache Maven 3.6 or later (`mvn` available on your `PATH`).
+
+Confirm the installed tools:
+
+```bash
+java -version
+mvn -version
+```
+
+## Installation and build
+
+Clone the repository and enter its root directory:
+
+```bash
+git clone https://github.com/jaysquaredaguana/AccountingLedgerApplication.git
+cd AccountingLedgerApplication
+```
+
+Compile and package with Maven:
+
+```bash
+mvn clean package
+```
+
+The compiled classes are placed under `target/classes`. The project does not configure an executable JAR manifest, so start the application with the classpath command below. Run it from the project root so `transactions.csv` resolves to the repository's data file:
+
+```bash
+java -cp target/classes com.pluralsight.Main
+```
+
+Maven can also compile and run the test lifecycle with `mvn test`; there are currently no test sources or test dependencies in the repository.
+
+## Usage
+
+Start the program from the repository root:
+
+```bash
+java -cp target/classes com.pluralsight.Main
+```
+
+At the home menu, enter:
+
+- `D` to record a deposit.
+- `P` to record a payment.
+- `L` to open the transaction archive.
+- `X` to shut down the application.
+
+For example, after selecting `D`, provide a description, vendor/source, and a positive amount when prompted. Selecting `P` uses the same prompts, but the application stores the amount as negative. Amount input must be numeric and greater than zero; the application applies the transaction sign itself.
+
+In the archive, choose `A` for all transactions, `D` for deposits, `P` for payments, or `R` for reports. Reports provide month/year date ranges, vendor search, and custom search. Custom-search dates use `YYYY-MM-DD`; criteria may be left blank, and a provided amount matches the absolute transaction amount.
+
+Transactions are appended to `transactions.csv` in this format:
+
+```text
+YYYY-MM-DD|HH:mm:ss|description|vendor|amount
+```
+
+For example:
+
+```text
+2026-11-06|09:15:00|Archive organization bonus|Jedi Academy Arts|67.00
+```
+
+The file manager skips the first line as a header and reports malformed records while continuing to read valid ones. Since the storage path is relative, launching from another directory may cause the application to read or create a different `transactions.csv` in that directory.
+
+## Testing
+
+No automated test files are currently present. To validate that the project compiles through Maven's test phase, run:
+
+```bash
+mvn test
+```
+
+For a basic manual check, run the program from the project root, add a deposit and a payment, then open the archive and confirm both entries appear with their expected signs. The records will be appended to `transactions.csv`; make a backup first if you need to preserve the sample data unchanged.
+
+## Potential future enhancements
+
+These are suggestions, not existing capabilities:
+
+- Add automated unit tests for sorting, date boundaries, search behavior, and file parsing.
+- Use a CSV library or escaping rules so descriptions and vendor names can safely contain delimiter characters.
+- Validate amounts with `BigDecimal` for currency precision.
+- Make the data-file path configurable and provide safer handling when the file is absent.
+- Separate console input/output from business logic to simplify testing.
