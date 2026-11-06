@@ -95,8 +95,17 @@ public class Main {
         System.out.print("Vendor / source: ");
         String vendor = read.nextLine();
 
-        System.out.print("Amount in credits: ");
-        double amount = Double.parseDouble(read.nextLine());
+        // simple numeric input validation
+        double amount = 0.0;
+        while (true) {
+            System.out.print("Enter amount: ");
+            try {
+                amount = Double.parseDouble(read.nextLine());
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid amount. Please enter a numeric value.");
+            }
+        }
 
         return new Transaction(date, time, description, vendor, amount);
     }
