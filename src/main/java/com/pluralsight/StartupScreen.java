@@ -1,30 +1,26 @@
 package com.pluralsight;
 
 public class StartupScreen {
-    // Display welcome sequence
     public static void display() {
-        System.out.println("""
-                ================================================
-                 *          .          *          .
-                
-                                 /\\
-                                /  \\
-                               /____\\
-                              | .--. |
-                              | |  | |
-                             /|_|__|_|\\
-                            /__________\\
-                
-                           GALACTIC LEDGER
-                   INTERSTELLAR FINANCIAL RECORDS SYSTEM
-                ================================================
+        System.out.print("""
+
+            ================================================================
+
+                             GALACTIC LEDGER
+                        SHIPBOARD CREDIT REGISTRY
+
+            ----------------------------------------------------------------
+
+                         VESSEL: WAYFARER
+                         REGISTRY: GL-001
+                         STATUS: INITIALIZING
+
+            ================================================================
 
                             WELCOME, TRAVELER
+                         FINANCIAL SYSTEM ONLINE
 
-                  Your credits. Your records. Your galaxy.
-
-                              SYSTEM ONLINE
-                ================================================
-                """);
+            ================================================================
+            """);
     }
 }
