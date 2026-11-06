@@ -42,7 +42,7 @@ public class StartupScreen {
     public static void animateSeparator() {
         String left = "<|:|>";
         String right = "<|:|>";
-        int totalWidth = 54;
+        int totalWidth = 57;
         // this was a fun leetcode style solution
         for (int i = 0; i <= totalWidth; i++) {
             String separator = "=".repeat(i)
