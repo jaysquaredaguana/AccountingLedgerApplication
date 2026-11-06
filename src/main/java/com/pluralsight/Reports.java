@@ -68,11 +68,8 @@ public class Reports {
     // Year To Date report
     public static void yearToDate() {
         LocalDate today = LocalDate.now();
-
         LocalDate startDate = today.withDayOfYear(1);
-        LocalDate endDate = today;
-
-        displayReport(startDate, endDate);
+        displayReport(startDate, today);
     }
 
     // Previous Year report
