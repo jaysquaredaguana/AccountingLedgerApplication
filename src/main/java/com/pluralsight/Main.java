@@ -36,15 +36,13 @@ public class Main {
                 case "D" -> addDeposit();
                 case "P" -> makePayment();
                 case "L" -> Ledger.display();
-                case "X" -> {
-                    System.out.print("""
-            
-                    ================================================
-                               GALACTIC LEDGER OFFLINE
-                            Safe travels, space traveler.
-                    ================================================
-                    """);
-                }
+                case "X" -> System.out.print("""
+        
+                ================================================
+                           GALACTIC LEDGER OFFLINE
+                        Safe travels, space traveler.
+                ================================================
+                """);
                 default -> System.out.println("Invalid selection. Please try again.");
             }
 
@@ -96,7 +94,7 @@ public class Main {
         String vendor = read.nextLine();
 
         // simple numeric input validation
-        double amount = 0.0;
+        double amount;
         while (true) {
             System.out.print("Enter amount: ");
             try {
@@ -112,12 +110,5 @@ public class Main {
             }
         }
         return new Transaction(date, time, description, vendor, amount);
-    }
-
-    // Ledger Screen
-    public static void displayLedger() {
-        System.out.println();
-        System.out.println("========== LEDGER ==========");
-        System.out.println("Ledger functionality coming soon!");
     }
 }
