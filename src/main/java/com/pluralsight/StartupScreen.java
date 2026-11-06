@@ -80,7 +80,7 @@ public class StartupScreen {
     }
 
     private static void animateShutdown() {
-        int totalSteps = 10;
+        int totalSteps = 67;
 
         for (int i = 0; i <= totalSteps; i++) {
             String progress = "=".repeat(i)
