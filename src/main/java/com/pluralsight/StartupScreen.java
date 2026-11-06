@@ -39,21 +39,23 @@ public class StartupScreen {
                 """);
     }
 
-    public static void animateSeparator() throws InterruptedException {
-        String[] frames = {
-                "<|:|>..............................<|:|>",
-                "<|:|>====..........................<|:|>",
-                "<|:|>==========....................<|:|>",
-                "<|:|>================..............<|:|>",
-                "<|:|>==========================....<|:|>",
-                "<|:|>================================<|:|>"
-        };
+    public static void animateSeparator() {
+        String left = "<|:|>";
+        String right = "<|:|>";
+        int totalWidth = 54;
+        // this was a fun leetcode style solution
+        for (int i = 0; i <= totalWidth; i++) {
+            String separator = "=".repeat(i)
+                    + ".".repeat(totalWidth - i);
 
-        for (String frame : frames) {
-            System.out.print("\r" + frame);
-            Thread.sleep(120);
+            System.out.print("\r" + left + separator + right);
+
+            try {
+                Thread.sleep(67);
+            } catch (InterruptedException e) {
+                return;
+            }
         }
-
         System.out.println();
     }
 }

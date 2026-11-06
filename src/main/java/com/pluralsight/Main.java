@@ -10,7 +10,7 @@ public class Main {
 
     public static void main(String[] args) {
         StartupScreen.display();
-
+        StartupScreen.animateSeparator();
         String choice;
 
         do {
