@@ -62,7 +62,7 @@ public class Main {
         Transaction transaction = createTransaction(); // implement helper method here
         transaction.setAmount(Math.abs(transaction.getAmount())); // positive transaction
         if (TransactionFileManager.saveTransaction(transaction)) { // check operation with boolean method return
-            System.out.println("[SYSTEM CONFIRMATION] Deposit recorded successfully.");
+            System.out.println("[R2-67] Beep boop. Credits secured!");
         }
     }
 
@@ -77,7 +77,7 @@ public class Main {
         Transaction transaction = createTransaction(); // reuse helper method
         transaction.setAmount(-Math.abs(transaction.getAmount())); // negative transaction
         if (TransactionFileManager.saveTransaction(transaction)) { // check operation success
-            System.out.println("[SYSTEM CONFIRMATION] Payment recorded successfully.");
+            System.out.println("[R2-67] Payment recorded. Wallet stability questionable.");
         }
     }
 
