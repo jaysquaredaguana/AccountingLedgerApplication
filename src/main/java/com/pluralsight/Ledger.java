@@ -35,14 +35,17 @@ public class Ledger {
     }
 
     public static void displayAll() {
+        System.out.println("[R2-67] Accessing the archives. Try not to lose anything.");
         Reports.displayTransactions(TransactionService.getAllTransactions());
     }
 
     public static void displayDeposits() {
+        System.out.println("[R2-67] Scanning inbound credits...");
         Reports.displayTransactions(TransactionService.getDeposits());
     }
 
     public static void displayPayments() {
+        System.out.println("[R2-67] Tracking outbound credits...");
         Reports.displayTransactions(TransactionService.getPayments());
     }
 }
