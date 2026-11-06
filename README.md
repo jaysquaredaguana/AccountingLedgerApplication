@@ -1,6 +1,6 @@
 # Accounting Ledger Application
 
-A Java 17 command-line ledger for recording deposits and payments, keeping them in a local transaction file, and reviewing the records through chronological views and reports. The terminal UI is styled as a shipboard archive, while the underlying application uses a small set of classes for input, transaction operations, persistence, search, and display.
+A Java command-line ledger for recording deposits and payments, and reviewing the records through chronological views and reports. The terminal UI is styled as a shipboard archive, while the underlying application uses a small set of classes for input, transaction operations, persistence, search, and display.
 
 ## Features
 
@@ -18,8 +18,6 @@ A Java 17 command-line ledger for recording deposits and payments, keeping them 
 - **Apache Maven** — project build configuration and lifecycle.
 - **Java standard library** — console input/output, file access, and date/time handling.
 - **Pipe-delimited local text file** — persistent transaction data in `transactions.csv` (despite the `.csv` extension, fields are separated with `|`).
-
-The `pom.xml` declares no third-party dependencies or test libraries.
 
 ## Architecture
 
@@ -204,48 +202,9 @@ sequenceDiagram
 - `TransactionFileManager.java` — appends and reads records in the working-directory data file.
 - `transactions.csv` — sample/persistent data file expected in the process working directory.
 
-## Prerequisites
-
-- JDK 17 or later. The Maven compiler source and target are configured for Java 17.
-- Apache Maven 3.6 or later (`mvn` available on your `PATH`).
-
-Confirm the installed tools:
-
-```bash
-java -version
-mvn -version
-```
-
-## Installation and build
-
-Clone the repository and enter its root directory:
-
-```bash
-git clone https://github.com/jaysquaredaguana/AccountingLedgerApplication.git
-cd AccountingLedgerApplication
-```
-
-Compile and package with Maven:
-
-```bash
-mvn clean package
-```
-
-The compiled classes are placed under `target/classes`. The project does not configure an executable JAR manifest, so start the application with the classpath command below. Run it from the project root so `transactions.csv` resolves to the repository's data file:
-
-```bash
-java -cp target/classes com.pluralsight.Main
-```
-
-Maven can also compile and run the test lifecycle with `mvn test`; there are currently no test sources or test dependencies in the repository.
-
 ## Usage
 
 Start the program from the repository root:
-
-```bash
-java -cp target/classes com.pluralsight.Main
-```
 
 At the home menu, enter:
 
@@ -274,12 +233,6 @@ The file manager skips the first line as a header and reports malformed records 
 
 ## Testing
 
-No automated test files are currently present. To validate that the project compiles through Maven's test phase, run:
-
-```bash
-mvn test
-```
-
 For a basic manual check, run the program from the project root, add a deposit and a payment, then open the archive and confirm both entries appear with their expected signs. The records will be appended to `transactions.csv`; make a backup first if you need to preserve the sample data unchanged.
 
 ## Potential future enhancements
@@ -290,4 +243,3 @@ These are suggestions, not existing capabilities:
 - Use a CSV library or escaping rules so descriptions and vendor names can safely contain delimiter characters.
 - Validate amounts with `BigDecimal` for currency precision.
 - Make the data-file path configurable and provide safer handling when the file is absent.
-- Separate console input/output from business logic to simplify testing.
