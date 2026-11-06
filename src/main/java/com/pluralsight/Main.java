@@ -12,7 +12,6 @@ public class Main {
         StartupScreen.display();
         StartupScreen.animateSeparator();
         String choice;
-
         do {
             System.out.println();
             TerminalUI.printSeparator(48);
