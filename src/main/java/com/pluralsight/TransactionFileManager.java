@@ -24,7 +24,7 @@ public class TransactionFileManager {
             System.out.println("[STORAGE ALERT] Unable to save transaction: " + e.getMessage());
             return false; // boolean return tracks success/failed operation
         }
-        return true;
+        return true; // resources close and operation completes
     }
 
     // Read transactions from CSV file
