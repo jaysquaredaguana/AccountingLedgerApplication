@@ -9,7 +9,10 @@ import java.util.ArrayList;
 
 public class Reports {
     public static void display() {
+        System.out.println("[R2-67] Records analysis module ready. What are we investigating?");
+
         String choice;
+
         do {
             System.out.print("""
    
@@ -39,7 +42,7 @@ public class Reports {
                 case "4" -> previousYear();
                 case "5" -> searchByVendor();
                 case "6" -> customSearch();
-                case "0" -> System.out.println("Returning to Ledger...");
+                case "0" -> System.out.println("[R2-67] Analysis complete. Returning to the archive.");
                 default -> System.out.println("Invalid selection. Please try again.");
             }
         } while (!choice.equals("0"));
@@ -84,6 +87,7 @@ public class Reports {
 
     // display method shared by calls in this Reports class
     public static void displayReport(LocalDate startDate, LocalDate endDate) {
+        System.out.println("[R2-67] Calculating your financial trajectory...");
         ArrayList<Transaction> transactions =
                 TransactionService.getTransactionsByDateRange(
                         startDate, endDate
@@ -100,6 +104,9 @@ public class Reports {
             System.out.println("Vendor name cannot be empty.");
             return;
         }
+
+        System.out.println("[R2-67] Searching the vendor database. Scanners engaged...");
+
         // TransactionService method does the search, Reports class calls it
         ArrayList<Transaction> transactions = TransactionService.searchByVendor(vendor);
         displayTransactions(transactions);
@@ -109,7 +116,7 @@ public class Reports {
     public static void displayTransactions(ArrayList<Transaction> transactions) {
         if (transactions.isEmpty()) {
             System.out.println();
-            System.out.println("  [ARCHIVE NOTICE] No matching transactions found.");
+            System.out.println("[R2-67] Nothing on the scanners. No matching records found.");
             return;
         }
 
@@ -216,6 +223,7 @@ public class Reports {
             }
         }
         SearchCriteria criteria = new SearchCriteria(startDate, endDate, description, vendor, amount);
+        System.out.println("[R2-67] Running custom archive scan. Let's see what we find...");
         displayTransactions(TransactionService.customSearch(criteria));
     }
 }
