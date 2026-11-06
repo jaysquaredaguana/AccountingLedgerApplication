@@ -10,7 +10,7 @@ public class TransactionFileManager {
     private static final String FILE_NAME = "transactions.csv";
 
     // Append transaction to CSV file
-    public static void saveTransaction(Transaction transaction) {
+    public static boolean saveTransaction(Transaction transaction) {
         // Declare and initialize try with resources
         try (
                 FileWriter fileWriter = new FileWriter(FILE_NAME, true);
@@ -22,7 +22,9 @@ public class TransactionFileManager {
 
         } catch (IOException e) {
             System.out.println("[STORAGE ALERT] Unable to save transaction: " + e.getMessage());
+            return false; // boolean return tracks success/failed operation
         }
+        return true;
     }
 
     // Read transactions from CSV file
