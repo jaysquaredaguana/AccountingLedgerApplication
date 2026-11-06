@@ -4,22 +4,23 @@ public class Ledger {
     public static void display() {
         String choice;
         do {
+            TerminalUI.printSeparator(48);
+            System.out.print("""   
+                        GALACTIC LEDGER
+                      TRANSACTION ARCHIVE
+            """);
+            TerminalUI.printSeparator(48);
             System.out.print("""
-   
-            ================================================
-                          GALACTIC LEDGER
-                        TRANSACTION ARCHIVE
-            ================================================
-   
               [A] ALL TRANSACTIONS
               [D] DEPOSIT RECORDS
               [P] PAYMENT RECORDS
               [R] MISSION REPORTS
               [H] RETURN TO HOME
-   
-            ------------------------------------------------
-              SYSTEM AWAITING INPUT
-              Select destination:\s""");
+            """);
+            TerminalUI.printSeparator(48);
+            System.out.print("""
+                SYSTEM AWAITING INPUT
+                Select destination:\s""");
 
             choice = Main.read.nextLine().trim().toUpperCase();
 

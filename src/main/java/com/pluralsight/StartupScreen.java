@@ -4,12 +4,12 @@ public class StartupScreen {
     public static void display() {
         System.out.println("""
                 
-                ================================================================
+                ==============================================================
                 
                                   GALACTIC LEDGER
                              SHIPBOARD CREDIT REGISTRY
                 
-                ----------------------------------------------------------------
+                --------------------------------------------------------------
                 
                                       .-.
                                       | |
@@ -30,19 +30,19 @@ public class StartupScreen {
                 
                        "All credits accounted for. Probably."
                 
-                ----------------------------------------------------------------
+                --------------------------------------------------------------
                 
                                   SYSTEMS ONLINE
                                   ARCHIVE READY
                 
-                ================================================================
+                ==============================================================
                 """);
     }
 
     public static void animateSeparator() {
         String left = "<|:|>";
         String right = "<|:|>";
-        int totalWidth = 57;
+        int totalWidth = 38;
         // this was a fun leetcode style solution
         for (int i = 0; i <= totalWidth; i++) {
             String separator = "=".repeat(i)

@@ -15,19 +15,19 @@ public class Main {
 
         do {
             System.out.println();
-            TerminalUI.printSeparator(67);
+            TerminalUI.printSeparator(48);
             System.out.println("""
-            \s                 GALACTIC LEDGER
-            \s                 COMMAND CENTER
-                            """);
-            TerminalUI.printSeparator(67);
+                           GALACTIC LEDGER
+                           COMMAND CENTER
+            """);
+            TerminalUI.printSeparator(48);
             System.out.println("""
-                \s      [D] CREDIT INBOUND    (Add Deposit)
-                \s      [P] CREDIT OUTBOUND   (Make Payment)
-                \s      [L] TRANSACTION ARCHIVE   (Ledger)
-                \s      [X] SHUT DOWN SYSTEM
-                """);
-            TerminalUI.printSeparator(67);
+                  [D] CREDIT INBOUND    (Add Deposit)
+                  [P] CREDIT OUTBOUND   (Make Payment)
+                  [L] TRANSACTION ARCHIVE   (Ledger)
+                  [X] SHUT DOWN SYSTEM
+            """);
+            TerminalUI.printSeparator(48);
             System.out.print("""
                 SYSTEM STATUS: ONLINE
                 Select command:\s""");
@@ -38,13 +38,14 @@ public class Main {
                 case "D" -> addDeposit();
                 case "P" -> makePayment();
                 case "L" -> Ledger.display();
-                case "X" -> System.out.print("""
-        
-                ================================================
-                           GALACTIC LEDGER OFFLINE
+                case "X" -> {
+                    TerminalUI.printSeparator(48);
+                    System.out.print("""
+                        GALACTIC LEDGER OFFLINE
                         Safe travels, space traveler.
-                ================================================
-                """);
+                    """);
+                    TerminalUI.printSeparator(48);
+                }
                 default -> System.out.println("Invalid selection. Please try again.");
             }
 
@@ -54,13 +55,12 @@ public class Main {
     }
 
     public static void addDeposit() {
+        TerminalUI.printSeparator(48);
         System.out.print("""
-
-        ================================================
-                       CREDIT INBOUND
+                      CREDIT INBOUND
                       DEPOSIT TERMINAL
-        ================================================
         """);
+        TerminalUI.printSeparator(48);
         Transaction transaction = createTransaction(); // implement helper method here
         transaction.setAmount(Math.abs(transaction.getAmount())); // positive transaction
         if (TransactionFileManager.saveTransaction(transaction)) { // check operation with boolean method return
@@ -69,13 +69,12 @@ public class Main {
     }
 
     public static void makePayment() {
+        TerminalUI.printSeparator(48);
         System.out.print("""
-
-        ================================================
                       CREDIT OUTBOUND
-                       PAYMENT TERMINAL
-        ================================================
+                      PAYMENT TERMINAL
         """);
+        TerminalUI.printSeparator(48);
         Transaction transaction = createTransaction(); // reuse helper method
         transaction.setAmount(-Math.abs(transaction.getAmount())); // negative transaction
         if (TransactionFileManager.saveTransaction(transaction)) { // check operation success
