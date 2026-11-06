@@ -78,8 +78,9 @@ public class Main {
         """);
         Transaction transaction = createTransaction(); // reuse helper method
         transaction.setAmount(-Math.abs(transaction.getAmount())); // negative transaction
-        TransactionFileManager.saveTransaction(transaction);
-        System.out.println("[SYSTEM CONFIRMATION] Payment recorded successfully.");
+        if (TransactionFileManager.saveTransaction(transaction)) { // check operation success
+            System.out.println("[SYSTEM CONFIRMATION] Payment recorded successfully.");
+        }
     }
 
     // Collect transaction information
