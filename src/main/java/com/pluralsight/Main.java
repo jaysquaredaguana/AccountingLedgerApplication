@@ -101,12 +101,16 @@ public class Main {
             System.out.print("Enter amount: ");
             try {
                 amount = Double.parseDouble(read.nextLine());
-                break;
+                if (amount > 0) {
+                    break; // valid escape
+                }
+                // transaction +/- handled in display, but would like to force nonzero transactions
+                System.out.println("Please enter an amount greater than zero.");
+
             } catch (NumberFormatException e) {
                 System.out.println("Invalid amount. Please enter a numeric value.");
             }
         }
-
         return new Transaction(date, time, description, vendor, amount);
     }
 
