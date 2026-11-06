@@ -8,7 +8,7 @@ public class Ledger {
             TerminalUI.printSeparator(48);
             System.out.print("""   
                         GALACTIC LEDGER
-                      TRANSACTION ARCHIVE\n
+                      TRANSACTION ARCHIVE
             """);
             TerminalUI.printSeparator(48);
             System.out.print("""
