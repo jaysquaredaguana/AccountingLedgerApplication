@@ -14,13 +14,13 @@ public class Reports {
         String choice;
 
         do {
+            TerminalUI.printSeparator(48);
             System.out.print("""
-   
-            ================================================
                           GALACTIC LEDGER
                            MISSION REPORTS
-            ================================================
-   
+            """);
+            TerminalUI.printSeparator(48);
+            System.out.print("""
               [1] MONTH TO DATE
               [2] PREVIOUS MONTH
               [3] YEAR TO DATE
