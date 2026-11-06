@@ -6,6 +6,9 @@ public class TerminalUI {
 
     public static void printSeparator(int totalWidth) {
         int separatorWidth = totalWidth - LEFT_MARKER.length() - RIGHT_MARKER.length();
+
+        System.out.println();
         System.out.println(LEFT_MARKER + "=".repeat(separatorWidth) + RIGHT_MARKER);
+        System.out.println();
     }
 }

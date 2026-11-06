@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class Reports {
     public static void display() {
-        System.out.println("[R2-67] Records analysis module ready. What are we investigating?");
+        System.out.println("[R2-67] Records analysis module ready. What are we investigating?\n");
 
         String choice;
 
@@ -20,6 +20,7 @@ public class Reports {
                            MISSION REPORTS
             """);
             TerminalUI.printSeparator(48);
+            System.out.println();
             System.out.print("""
               [1] MONTH TO DATE
               [2] PREVIOUS MONTH
@@ -124,13 +125,13 @@ public class Reports {
         ==============================================================
         """);
 
-        System.out.printf("%-12s %-10s %-24s %-24s %12s%n", // column width format and alignment
+        System.out.printf("%-12s %-10s %-30s %-24s %12s%n", // column width format and alignment
                 "DATE", "TIME", "DESCRIPTION", "VENDOR", "AMOUNT"); // table field headers
 
         System.out.println("--------------------------------------------------------------------");
         // reuse columns and fill fields
         for (Transaction transaction : transactions) {
-            System.out.printf("%-12s %-10s %-24s %-24s %12.2f%n",
+            System.out.printf("%-12s %-10s %-30s %-24s %12.2f%n",
                     transaction.getDate(),
                     transaction.getTime().format(DateTimeFormatter.ofPattern("HH:mm:ss")), // forcing ISO default
                     transaction.getDescription(),

@@ -4,10 +4,11 @@ public class Ledger {
     public static void display() {
         String choice;
         do {
+            System.out.println();
             TerminalUI.printSeparator(48);
             System.out.print("""   
                         GALACTIC LEDGER
-                      TRANSACTION ARCHIVE
+                      TRANSACTION ARCHIVE\n
             """);
             TerminalUI.printSeparator(48);
             System.out.print("""
